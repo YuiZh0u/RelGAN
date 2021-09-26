@@ -66,7 +66,7 @@ class RelationalMemory(object):
 
         self._key_size = key_size if key_size else self._head_size
 
-        self._template = tf.make_template(self._name, self._build)  # wrapper for variable sharing
+        self._template = tf.compat.v1.make_template(self._name, self._build)  # wrapper for variable sharing
 
     def initial_state(self, batch_size):
         """Creates the initial memory.
@@ -120,7 +120,7 @@ class RelationalMemory(object):
         qkv_reshape = tf.reshape(qkv, [batch_size, -1, self._num_heads, qkv_size])
 
         # [B, N, H, F/H] -> [B, H, N, F/H]
-        qkv_transpose = tf.transpose(qkv_reshape, [0, 2, 1, 3])
+        qkv_transpose = tf.transpose(a=qkv_reshape, perm=[0, 2, 1, 3])
         q, k, v = tf.split(qkv_transpose, [self._key_size, self._key_size, self._head_size], -1)
 
         q *= qkv_size ** -0.5
@@ -130,7 +130,7 @@ class RelationalMemory(object):
         output = tf.matmul(weights, v)  # [B, H, N, V]
 
         # [B, H, N, V] -> [B, N, H, V]
-        output_transpose = tf.transpose(output, [0, 2, 1, 3])
+        output_transpose = tf.transpose(a=output, perm=[0, 2, 1, 3])
 
         # [B, N, H, V] -> [B, N, H * V]
         new_memory = tf.reshape(output_transpose, [batch_size, -1, self._mem_size])
@@ -281,11 +281,11 @@ class RelationalMemory(object):
     @property
     def rmc_params(self):
         """Returns the parameters in the RMC module"""
-        return tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope=self._name)
+        return tf.compat.v1.get_collection(tf.compat.v1.GraphKeys.TRAINABLE_VARIABLES, scope=self._name)
 
     def set_rmc_params(self, ref_rmc_params):
         """Set parameters of the RMC module to be the same with those of the reference module"""
-        rmc_params = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope=self._name)
+        rmc_params = tf.compat.v1.get_collection(tf.compat.v1.GraphKeys.TRAINABLE_VARIABLES, scope=self._name)
         if len(rmc_params) != len(ref_rmc_params):
             raise ValueError("the number of parameters in the two RMC modules does not match")
         for i in range(len(ref_rmc_params)):
@@ -293,7 +293,7 @@ class RelationalMemory(object):
 
     def update_rmc_params(self, ref_rmc_params, update_ratio):
         """Update parameters of the RMC module based on a reference module"""
-        rmc_params = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope=self._name)
+        rmc_params = tf.compat.v1.get_collection(tf.compat.v1.GraphKeys.TRAINABLE_VARIABLES, scope=self._name)
         if len(rmc_params) != len(ref_rmc_params):
             raise ValueError("the number of parameters in the two RMC modules does not match")
         for i in range(len(ref_rmc_params)):

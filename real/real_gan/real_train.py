@@ -1,5 +1,6 @@
 import numpy as np
 import tensorflow as tf
+tf.compat.v1.disable_eager_execution()
 from tqdm import tqdm
 import time
 from utils.metrics.Nll import Nll
@@ -51,7 +52,7 @@ def real_train(generator, discriminator, oracle_loader, config):
         os.makedirs(log_dir)
 
     # placeholder definitions
-    x_real = tf.placeholder(tf.int32, [batch_size, seq_len], name="x_real")  # tokens of oracle sequences
+    x_real = tf.compat.v1.placeholder(tf.int32, [batch_size, seq_len], name="x_real")  # tokens of oracle sequences
 
     temperature = tf.Variable(1., trainable=False, name='temperature')
 
@@ -75,34 +76,34 @@ def real_train(generator, discriminator, oracle_loader, config):
     g_pretrain_op, g_train_op, d_train_op = get_train_ops(config, g_pretrain_loss, g_loss, d_loss, global_step)
 
     # Record wall clock time
-    time_diff = tf.placeholder(tf.float32)
+    time_diff = tf.compat.v1.placeholder(tf.float32)
     Wall_clock_time = tf.Variable(0., trainable=False)
     update_Wall_op = Wall_clock_time.assign_add(time_diff)
 
     # Temperature placeholder
-    temp_var = tf.placeholder(tf.float32)
+    temp_var = tf.compat.v1.placeholder(tf.float32)
     update_temperature_op = temperature.assign(temp_var)
 
     # Loss summaries
     loss_summaries = [
-        tf.summary.scalar('loss/discriminator', d_loss),
-        tf.summary.scalar('loss/g_loss', g_loss),
-        tf.summary.scalar('loss/log_pg', log_pg),
-        tf.summary.scalar('loss/Wall_clock_time', Wall_clock_time),
-        tf.summary.scalar('loss/temperature', temperature),
+        tf.compat.v1.summary.scalar('loss/discriminator', d_loss),
+        tf.compat.v1.summary.scalar('loss/g_loss', g_loss),
+        tf.compat.v1.summary.scalar('loss/log_pg', log_pg),
+        tf.compat.v1.summary.scalar('loss/Wall_clock_time', Wall_clock_time),
+        tf.compat.v1.summary.scalar('loss/temperature', temperature),
     ]
-    loss_summary_op = tf.summary.merge(loss_summaries)
+    loss_summary_op = tf.compat.v1.summary.merge(loss_summaries)
 
     # Metric Summaries
     metrics_pl, metric_summary_op = get_metric_summary_op(config)
 
     # saver
-    saver = tf.train.Saver(max_to_keep=10)
+    saver = tf.compat.v1.train.Saver(max_to_keep=10)
 
     # ------------- initial the graph --------------
     with init_sess() as sess:
         log = open(csv_file, 'w')
-        sum_writer = tf.summary.FileWriter(os.path.join(log_dir, 'summary'), sess.graph)
+        sum_writer = tf.compat.v1.summary.FileWriter(os.path.join(log_dir, 'summary'), sess.graph)
 
         # generate oracle data and create batches
         index_word_dict = get_oracle_file(data_file, oracle_file, seq_len)
@@ -199,23 +200,23 @@ def get_losses(d_out_real, d_out_fake, x_real_onehot, x_fake_onehot_appr, gen_o,
     gan_type = config['gan_type']
 
     if gan_type == 'standard':  # the non-satuating GAN loss
-        d_loss_real = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(
+        d_loss_real = tf.reduce_mean(input_tensor=tf.nn.sigmoid_cross_entropy_with_logits(
             logits=d_out_real, labels=tf.ones_like(d_out_real)
         ))
-        d_loss_fake = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(
+        d_loss_fake = tf.reduce_mean(input_tensor=tf.nn.sigmoid_cross_entropy_with_logits(
             logits=d_out_fake, labels=tf.zeros_like(d_out_fake)
         ))
         d_loss = d_loss_real + d_loss_fake
 
-        g_loss = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(
+        g_loss = tf.reduce_mean(input_tensor=tf.nn.sigmoid_cross_entropy_with_logits(
             logits=d_out_fake, labels=tf.ones_like(d_out_fake)
         ))
 
     elif gan_type == 'JS':  # the vanilla GAN loss
-        d_loss_real = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(
+        d_loss_real = tf.reduce_mean(input_tensor=tf.nn.sigmoid_cross_entropy_with_logits(
             logits=d_out_real, labels=tf.ones_like(d_out_real)
         ))
-        d_loss_fake = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(
+        d_loss_fake = tf.reduce_mean(input_tensor=tf.nn.sigmoid_cross_entropy_with_logits(
             logits=d_out_fake, labels=tf.zeros_like(d_out_fake)
         ))
         d_loss = d_loss_real + d_loss_fake
@@ -223,53 +224,53 @@ def get_losses(d_out_real, d_out_fake, x_real_onehot, x_fake_onehot_appr, gen_o,
         g_loss = -d_loss_fake
 
     elif gan_type == 'KL':  # the GAN loss implicitly minimizing KL-divergence
-        d_loss_real = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(
+        d_loss_real = tf.reduce_mean(input_tensor=tf.nn.sigmoid_cross_entropy_with_logits(
             logits=d_out_real, labels=tf.ones_like(d_out_real)
         ))
-        d_loss_fake = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(
+        d_loss_fake = tf.reduce_mean(input_tensor=tf.nn.sigmoid_cross_entropy_with_logits(
             logits=d_out_fake, labels=tf.zeros_like(d_out_fake)
         ))
         d_loss = d_loss_real + d_loss_fake
 
-        g_loss = tf.reduce_mean(-d_out_fake)
+        g_loss = tf.reduce_mean(input_tensor=-d_out_fake)
 
     elif gan_type == 'hinge':  # the hinge loss
-        d_loss_real = tf.reduce_mean(tf.nn.relu(1.0 - d_out_real))
-        d_loss_fake = tf.reduce_mean(tf.nn.relu(1.0 + d_out_fake))
+        d_loss_real = tf.reduce_mean(input_tensor=tf.nn.relu(1.0 - d_out_real))
+        d_loss_fake = tf.reduce_mean(input_tensor=tf.nn.relu(1.0 + d_out_fake))
         d_loss = d_loss_real + d_loss_fake
 
-        g_loss = -tf.reduce_mean(d_out_fake)
+        g_loss = -tf.reduce_mean(input_tensor=d_out_fake)
 
     elif gan_type == 'tv':  # the total variation distance
-        d_loss = tf.reduce_mean(tf.tanh(d_out_fake) - tf.tanh(d_out_real))
-        g_loss = tf.reduce_mean(-tf.tanh(d_out_fake))
+        d_loss = tf.reduce_mean(input_tensor=tf.tanh(d_out_fake) - tf.tanh(d_out_real))
+        g_loss = tf.reduce_mean(input_tensor=-tf.tanh(d_out_fake))
 
     elif gan_type == 'wgan-gp':  # WGAN-GP
-        d_loss = tf.reduce_mean(d_out_fake) - tf.reduce_mean(d_out_real)
+        d_loss = tf.reduce_mean(input_tensor=d_out_fake) - tf.reduce_mean(input_tensor=d_out_real)
         GP = gradient_penalty(discriminator, x_real_onehot, x_fake_onehot_appr, config)
         d_loss += GP
 
-        g_loss = -tf.reduce_mean(d_out_fake)
+        g_loss = -tf.reduce_mean(input_tensor=d_out_fake)
 
     elif gan_type == 'LS':  # LS-GAN
-        d_loss_real = tf.reduce_mean(tf.squared_difference(d_out_real, 1.0))
-        d_loss_fake = tf.reduce_mean(tf.square(d_out_fake))
+        d_loss_real = tf.reduce_mean(input_tensor=tf.math.squared_difference(d_out_real, 1.0))
+        d_loss_fake = tf.reduce_mean(input_tensor=tf.square(d_out_fake))
         d_loss = d_loss_real + d_loss_fake
 
-        g_loss = tf.reduce_mean(tf.squared_difference(d_out_fake, 1.0))
+        g_loss = tf.reduce_mean(input_tensor=tf.math.squared_difference(d_out_fake, 1.0))
 
     elif gan_type == 'RSGAN':  # relativistic standard GAN
-        d_loss = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(
+        d_loss = tf.reduce_mean(input_tensor=tf.nn.sigmoid_cross_entropy_with_logits(
             logits=d_out_real - d_out_fake, labels=tf.ones_like(d_out_real)
         ))
-        g_loss = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(
+        g_loss = tf.reduce_mean(input_tensor=tf.nn.sigmoid_cross_entropy_with_logits(
             logits=d_out_fake - d_out_real, labels=tf.ones_like(d_out_fake)
         ))
 
     else:
         raise NotImplementedError("Divergence '%s' is not implemented" % gan_type)
 
-    log_pg = tf.reduce_mean(tf.log(gen_o + EPS))  # [1], measures the log p_g(x)
+    log_pg = tf.reduce_mean(input_tensor=tf.math.log(gen_o + EPS))  # [1], measures the log p_g(x)
 
     return log_pg, g_loss, d_loss
 
@@ -282,43 +283,43 @@ def get_train_ops(config, g_pretrain_loss, g_loss, d_loss, global_step):
     gpre_lr = config['gpre_lr']
     gadv_lr = config['gadv_lr']
 
-    g_vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope='generator')
-    d_vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope='discriminator')
+    g_vars = tf.compat.v1.get_collection(tf.compat.v1.GraphKeys.TRAINABLE_VARIABLES, scope='generator')
+    d_vars = tf.compat.v1.get_collection(tf.compat.v1.GraphKeys.TRAINABLE_VARIABLES, scope='discriminator')
 
     grad_clip = 5.0  # keep the same with the previous setting
 
     # generator pre-training
-    pretrain_opt = tf.train.AdamOptimizer(gpre_lr, beta1=0.9, beta2=0.999)
-    pretrain_grad, _ = tf.clip_by_global_norm(tf.gradients(g_pretrain_loss, g_vars), grad_clip)  # gradient clipping
+    pretrain_opt = tf.compat.v1.train.AdamOptimizer(gpre_lr, beta1=0.9, beta2=0.999)
+    pretrain_grad, _ = tf.clip_by_global_norm(tf.gradients(ys=g_pretrain_loss, xs=g_vars), grad_clip)  # gradient clipping
     g_pretrain_op = pretrain_opt.apply_gradients(zip(pretrain_grad, g_vars))
 
     # decide if using the weight decaying
     if config['decay']:
-        d_lr = tf.train.exponential_decay(d_lr, global_step=global_step, decay_steps=nadv_steps, decay_rate=0.1)
-        gadv_lr = tf.train.exponential_decay(gadv_lr, global_step=global_step, decay_steps=nadv_steps, decay_rate=0.1)
+        d_lr = tf.compat.v1.train.exponential_decay(d_lr, global_step=global_step, decay_steps=nadv_steps, decay_rate=0.1)
+        gadv_lr = tf.compat.v1.train.exponential_decay(gadv_lr, global_step=global_step, decay_steps=nadv_steps, decay_rate=0.1)
 
     # Adam optimizer
     if optimizer_name == 'adam':
-        d_optimizer = tf.train.AdamOptimizer(d_lr, beta1=0.9, beta2=0.999)
-        g_optimizer = tf.train.AdamOptimizer(gadv_lr, beta1=0.9, beta2=0.999)
+        d_optimizer = tf.compat.v1.train.AdamOptimizer(d_lr, beta1=0.9, beta2=0.999)
+        g_optimizer = tf.compat.v1.train.AdamOptimizer(gadv_lr, beta1=0.9, beta2=0.999)
 
     # RMSProp optimizer
     elif optimizer_name == 'rmsprop':
-        d_optimizer = tf.train.RMSPropOptimizer(d_lr)
-        g_optimizer = tf.train.RMSPropOptimizer(gadv_lr)
+        d_optimizer = tf.compat.v1.train.RMSPropOptimizer(d_lr)
+        g_optimizer = tf.compat.v1.train.RMSPropOptimizer(gadv_lr)
 
     else:
         raise NotImplementedError
 
     # gradient clipping
-    g_grads, _ = tf.clip_by_global_norm(tf.gradients(g_loss, g_vars), grad_clip)
+    g_grads, _ = tf.clip_by_global_norm(tf.gradients(ys=g_loss, xs=g_vars), grad_clip)
     g_train_op = g_optimizer.apply_gradients(zip(g_grads, g_vars))
 
     print('len of g_grads without None: {}'.format(len([i for i in g_grads if i is not None])))
     print('len of g_grads: {}'.format(len(g_grads)))
 
     # gradient clipping
-    d_grads, _ = tf.clip_by_global_norm(tf.gradients(d_loss, d_vars), grad_clip)
+    d_grads, _ = tf.clip_by_global_norm(tf.gradients(ys=d_loss, xs=d_vars), grad_clip)
     d_train_op = d_optimizer.apply_gradients(zip(d_grads, d_vars))
 
     return g_pretrain_op, g_train_op, d_train_op
@@ -352,28 +353,28 @@ def get_metric_summary_op(config):
     metrics_sum = []
 
     if config['nll_gen']:
-        nll_gen = tf.placeholder(tf.float32)
+        nll_gen = tf.compat.v1.placeholder(tf.float32)
         metrics_pl.append(nll_gen)
-        metrics_sum.append(tf.summary.scalar('metrics/nll_gen', nll_gen))
+        metrics_sum.append(tf.compat.v1.summary.scalar('metrics/nll_gen', nll_gen))
 
     if config['doc_embsim']:
-        doc_embsim = tf.placeholder(tf.float32)
+        doc_embsim = tf.compat.v1.placeholder(tf.float32)
         metrics_pl.append(doc_embsim)
-        metrics_sum.append(tf.summary.scalar('metrics/doc_embsim', doc_embsim))
+        metrics_sum.append(tf.compat.v1.summary.scalar('metrics/doc_embsim', doc_embsim))
 
     if config['bleu']:
         for i in range(2, 6):
-            temp_pl = tf.placeholder(tf.float32, name='bleu{}'.format(i))
+            temp_pl = tf.compat.v1.placeholder(tf.float32, name='bleu{}'.format(i))
             metrics_pl.append(temp_pl)
-            metrics_sum.append(tf.summary.scalar('metrics/bleu{}'.format(i), temp_pl))
+            metrics_sum.append(tf.compat.v1.summary.scalar('metrics/bleu{}'.format(i), temp_pl))
 
     if config['selfbleu']:
         for i in range(2, 6):
-            temp_pl = tf.placeholder(tf.float32, name='selfbleu{}'.format(i))
+            temp_pl = tf.compat.v1.placeholder(tf.float32, name='selfbleu{}'.format(i))
             metrics_pl.append(temp_pl)
-            metrics_sum.append(tf.summary.scalar('metrics/selfbleu{}'.format(i), temp_pl))
+            metrics_sum.append(tf.compat.v1.summary.scalar('metrics/selfbleu{}'.format(i), temp_pl))
 
-    metric_summary_op = tf.summary.merge(metrics_sum)
+    metric_summary_op = tf.compat.v1.summary.merge(metrics_sum)
     return metrics_pl, metric_summary_op
 
 

@@ -8,7 +8,7 @@ def generator(x_real, temperature, vocab_size, batch_size, seq_len, gen_emb_dim,
     start_tokens = tf.constant([start_token] * batch_size, dtype=tf.int32)
 
     # build LSTM unit
-    g_embeddings = tf.get_variable('g_emb', shape=[vocab_size, gen_emb_dim],
+    g_embeddings = tf.compat.v1.get_variable('g_emb', shape=[vocab_size, gen_emb_dim],
                                    initializer=create_linear_initializer(vocab_size))
     gen_mem = create_recurrent_unit(emb_dim=gen_emb_dim, hidden_dim=hidden_dim)
     g_output_unit = create_lstm_output_unit(hidden_dim, vocab_size)
@@ -28,15 +28,15 @@ def generator(x_real, temperature, vocab_size, batch_size, seq_len, gen_emb_dim,
         h_t = gen_mem(x_t, h_tm1)  # hidden_memory_tuple
         o_t = g_output_unit(h_t)  # batch x vocab, logits not probs
         gumbel_t = add_gumbel(o_t)
-        next_token = tf.stop_gradient(tf.argmax(gumbel_t, axis=1, output_type=tf.int32))
+        next_token = tf.stop_gradient(tf.argmax(input=gumbel_t, axis=1, output_type=tf.int32))
         next_token_onehot = tf.one_hot(next_token, vocab_size, 1.0, 0.0)
 
         x_onehot_appr = tf.nn.softmax(tf.multiply(gumbel_t, temperature))  # one-hot-like, [batch_size x vocab_size]
 
         # x_tp1 = tf.matmul(x_onehot_appr, g_embeddings)  # approximated embeddings, [batch_size x emb_dim]
-        x_tp1 = tf.nn.embedding_lookup(g_embeddings, next_token)  # embeddings, [batch_size x emb_dim]
+        x_tp1 = tf.nn.embedding_lookup(params=g_embeddings, ids=next_token)  # embeddings, [batch_size x emb_dim]
 
-        gen_o = gen_o.write(i, tf.reduce_sum(tf.multiply(next_token_onehot, x_onehot_appr), 1))  # [batch_size], prob
+        gen_o = gen_o.write(i, tf.reduce_sum(input_tensor=tf.multiply(next_token_onehot, x_onehot_appr), axis=1))  # [batch_size], prob
         gen_x = gen_x.write(i, next_token)  # indices, [batch_size]
 
         gen_x_onehot_adv = gen_x_onehot_adv.write(i, x_onehot_appr)
@@ -47,16 +47,16 @@ def generator(x_real, temperature, vocab_size, batch_size, seq_len, gen_emb_dim,
     _, _, _, gen_o, gen_x, gen_x_onehot_adv = control_flow_ops.while_loop(
         cond=lambda i, _1, _2, _3, _4, _5: i < seq_len,
         body=_gen_recurrence,
-        loop_vars=(tf.constant(0, dtype=tf.int32), tf.nn.embedding_lookup(g_embeddings, start_tokens),
+        loop_vars=(tf.constant(0, dtype=tf.int32), tf.nn.embedding_lookup(params=g_embeddings, ids=start_tokens),
                    init_states, gen_o, gen_x, gen_x_onehot_adv))
 
-    gen_o = tf.transpose(gen_o.stack(), perm=[1, 0])  # batch_size x seq_len
-    gen_x = tf.transpose(gen_x.stack(), perm=[1, 0])  # batch_size x seq_len
+    gen_o = tf.transpose(a=gen_o.stack(), perm=[1, 0])  # batch_size x seq_len
+    gen_x = tf.transpose(a=gen_x.stack(), perm=[1, 0])  # batch_size x seq_len
 
-    gen_x_onehot_adv = tf.transpose(gen_x_onehot_adv.stack(), perm=[1, 0, 2])  # batch_size x seq_len x vocab_size
+    gen_x_onehot_adv = tf.transpose(a=gen_x_onehot_adv.stack(), perm=[1, 0, 2])  # batch_size x seq_len x vocab_size
 
     # ----------- pre-training for generator -----------------
-    x_emb = tf.transpose(tf.nn.embedding_lookup(g_embeddings, x_real), perm=[1, 0, 2])  # seq_len x batch_size x emb_dim
+    x_emb = tf.transpose(a=tf.nn.embedding_lookup(params=g_embeddings, ids=x_real), perm=[1, 0, 2])  # seq_len x batch_size x emb_dim
     g_predictions = tensor_array_ops.TensorArray(dtype=tf.float32, size=seq_len, dynamic_size=False, infer_shape=True)
 
     ta_emb_x = tensor_array_ops.TensorArray(dtype=tf.float32, size=seq_len)
@@ -74,15 +74,15 @@ def generator(x_real, temperature, vocab_size, batch_size, seq_len, gen_emb_dim,
     _, _, _, g_predictions = control_flow_ops.while_loop(
         cond=lambda i, _1, _2, _3: i < seq_len,
         body=_pretrain_recurrence,
-        loop_vars=(tf.constant(0, dtype=tf.int32), tf.nn.embedding_lookup(g_embeddings, start_tokens),
+        loop_vars=(tf.constant(0, dtype=tf.int32), tf.nn.embedding_lookup(params=g_embeddings, ids=start_tokens),
                    init_states, g_predictions))
 
-    g_predictions = tf.transpose(g_predictions.stack(),
+    g_predictions = tf.transpose(a=g_predictions.stack(),
                                  perm=[1, 0, 2])  # batch_size x seq_length x vocab_size
 
     # pre-training loss
     pretrain_loss = -tf.reduce_sum(
-        tf.one_hot(tf.to_int32(tf.reshape(x_real, [-1])), vocab_size, 1.0, 0.0) * tf.log(
+        input_tensor=tf.one_hot(tf.cast(tf.reshape(x_real, [-1]), dtype=tf.int32), vocab_size, 1.0, 0.0) * tf.math.log(
             tf.clip_by_value(tf.reshape(g_predictions, [-1, vocab_size]), 1e-20, 1.0)
         )
     ) / (seq_len * batch_size)
@@ -98,7 +98,7 @@ def discriminator(x_onehot, batch_size, seq_len, vocab_size, dis_emb_dim, num_re
     num_filters = [300, 300, 300, 300]
     dropout_keep_prob = 0.75
 
-    d_embeddings = tf.get_variable('d_emb', shape=[vocab_size, dis_emb_dim],
+    d_embeddings = tf.compat.v1.get_variable('d_emb', shape=[vocab_size, dis_emb_dim],
                                    initializer=create_linear_initializer(vocab_size))
     input_x_re = tf.reshape(x_onehot, [-1, vocab_size])
     emb_x_re = tf.matmul(input_x_re, d_embeddings)
@@ -114,7 +114,7 @@ def discriminator(x_onehot, batch_size, seq_len, vocab_size, dis_emb_dim, num_re
                       d_h=1, d_w=emb_dim_single, sn=sn, stddev=None, padding='VALID',
                       scope="conv-%s" % filter_size)  # batch_size x (seq_len-k_h+1) x num_rep x num_filter
         out = tf.nn.relu(conv, name="relu")
-        pooled = tf.nn.max_pool(out, ksize=[1, seq_len - filter_size + 1, 1, 1],
+        pooled = tf.nn.max_pool2d(input=out, ksize=[1, seq_len - filter_size + 1, 1, 1],
                                 strides=[1, 1, 1, 1], padding='VALID',
                                 name="pool")  # batch_size x 1 x num_rep x num_filter
         pooled_outputs.append(pooled)
@@ -129,7 +129,7 @@ def discriminator(x_onehot, batch_size, seq_len, vocab_size, dis_emb_dim, num_re
     h_highway = highway(h_pool_flat, h_pool_flat.get_shape()[1], 1, 0)  # (batch_size*num_rep) x num_filters_total
 
     # Add dropout
-    h_drop = tf.nn.dropout(h_highway, dropout_keep_prob, name='dropout')
+    h_drop = tf.nn.dropout(h_highway, 1 - (dropout_keep_prob), name='dropout')
 
     # fc
     fc_out = linear(h_drop, output_size=100, use_bias=True, sn=sn, scope='fc')
@@ -141,21 +141,21 @@ def discriminator(x_onehot, batch_size, seq_len, vocab_size, dis_emb_dim, num_re
 
 def create_recurrent_unit(emb_dim, hidden_dim):
     # Weights and Bias for input and hidden tensor
-    Wi = tf.get_variable('Wi', shape=[emb_dim, hidden_dim], initializer=create_linear_initializer(emb_dim))
-    Ui = tf.get_variable('Ui', shape=[hidden_dim, hidden_dim], initializer=create_linear_initializer(hidden_dim))
-    bi = tf.get_variable('bi', shape=[hidden_dim], initializer=create_bias_initializer())
+    Wi = tf.compat.v1.get_variable('Wi', shape=[emb_dim, hidden_dim], initializer=create_linear_initializer(emb_dim))
+    Ui = tf.compat.v1.get_variable('Ui', shape=[hidden_dim, hidden_dim], initializer=create_linear_initializer(hidden_dim))
+    bi = tf.compat.v1.get_variable('bi', shape=[hidden_dim], initializer=create_bias_initializer())
 
-    Wf = tf.get_variable('Wf', shape=[emb_dim, hidden_dim], initializer=create_linear_initializer(emb_dim))
-    Uf = tf.get_variable('Uf', shape=[hidden_dim, hidden_dim], initializer=create_linear_initializer(hidden_dim))
-    bf = tf.get_variable('bf', shape=[hidden_dim], initializer=create_bias_initializer())
+    Wf = tf.compat.v1.get_variable('Wf', shape=[emb_dim, hidden_dim], initializer=create_linear_initializer(emb_dim))
+    Uf = tf.compat.v1.get_variable('Uf', shape=[hidden_dim, hidden_dim], initializer=create_linear_initializer(hidden_dim))
+    bf = tf.compat.v1.get_variable('bf', shape=[hidden_dim], initializer=create_bias_initializer())
 
-    Wog = tf.get_variable('Wog', shape=[emb_dim, hidden_dim], initializer=create_linear_initializer(emb_dim))
-    Uog = tf.get_variable('Uog', shape=[hidden_dim, hidden_dim], initializer=create_linear_initializer(hidden_dim))
-    bog = tf.get_variable('bog', shape=[hidden_dim], initializer=create_bias_initializer())
+    Wog = tf.compat.v1.get_variable('Wog', shape=[emb_dim, hidden_dim], initializer=create_linear_initializer(emb_dim))
+    Uog = tf.compat.v1.get_variable('Uog', shape=[hidden_dim, hidden_dim], initializer=create_linear_initializer(hidden_dim))
+    bog = tf.compat.v1.get_variable('bog', shape=[hidden_dim], initializer=create_bias_initializer())
 
-    Wc = tf.get_variable('Wc', shape=[emb_dim, hidden_dim], initializer=create_linear_initializer(emb_dim))
-    Uc = tf.get_variable('Uc', shape=[hidden_dim, hidden_dim], initializer=create_linear_initializer(hidden_dim))
-    bc = tf.get_variable('bc', shape=[hidden_dim], initializer=create_bias_initializer())
+    Wc = tf.compat.v1.get_variable('Wc', shape=[emb_dim, hidden_dim], initializer=create_linear_initializer(emb_dim))
+    Uc = tf.compat.v1.get_variable('Uc', shape=[hidden_dim, hidden_dim], initializer=create_linear_initializer(hidden_dim))
+    bc = tf.compat.v1.get_variable('bc', shape=[hidden_dim], initializer=create_bias_initializer())
 
     def unit(x, hidden_memory_tm1):
         previous_hidden_state, c_prev = tf.unstack(hidden_memory_tm1)
@@ -196,8 +196,8 @@ def create_recurrent_unit(emb_dim, hidden_dim):
 
 
 def create_lstm_output_unit(hidden_dim, vocab_size):
-    Wo = tf.get_variable('Wo', shape=[hidden_dim, vocab_size], initializer=create_linear_initializer(hidden_dim))
-    bo = tf.get_variable('bo', shape=[vocab_size], initializer=create_bias_initializer())
+    Wo = tf.compat.v1.get_variable('Wo', shape=[hidden_dim, vocab_size], initializer=create_linear_initializer(hidden_dim))
+    bo = tf.compat.v1.get_variable('bo', shape=[vocab_size], initializer=create_bias_initializer())
 
     def unit(hidden_memory_tuple):
         hidden_state, c_prev = tf.unstack(hidden_memory_tuple)

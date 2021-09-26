@@ -18,11 +18,11 @@ discriminator_dict = {
 
 def get_generator(model_name, scope='generator', **kwargs):
     model_func = generator_dict[model_name]
-    return tf.make_template(scope, model_func, **kwargs)
+    return tf.compat.v1.make_template(scope, model_func, **kwargs)
     # return tf.compat.v1.make_template(scope, model_func, **kwargs) #If use Tf v2
 
 
 def get_discriminator(model_name, scope='discriminator', **kwargs):
     model_func = discriminator_dict[model_name]
-    return tf.make_template(scope, model_func, **kwargs)
+    return tf.compat.v1.make_template(scope, model_func, **kwargs)
     # return tf.compat.v1.make_template(scope, model_func, **kwargs) #If use Tf v2

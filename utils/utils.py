@@ -33,10 +33,10 @@ def generate_samples(sess, gen_x, batch_size, generated_num, output_file=None, g
 
 
 def init_sess():
-    config = tf.ConfigProto()
+    config = tf.compat.v1.ConfigProto()
     config.gpu_options.allow_growth = True
-    sess = tf.Session(config=config)
-    sess.run(tf.global_variables_initializer())
+    sess = tf.compat.v1.Session(config=config)
+    sess.run(tf.compat.v1.global_variables_initializer())
     return sess
 
 

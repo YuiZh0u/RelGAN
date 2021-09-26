@@ -1,0 +1,800 @@
+TensorFlow 2.0 Upgrade Script
+-----------------------------
+Converted 33 files
+Detected 65 issues that require attention
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+File: /content/RelGAN/utils/models/relational_memory.py
+--------------------------------------------------------------------------------
+/content/RelGAN/utils/models/relational_memory.py:117:14: WARNING: tf.contrib.layers.layer_norm requires manual check. (Manual edit required) `tf.contrib.layers.layer_norm` has been deprecated, and its implementation has been integrated with `tf.keras.layers.LayerNormalization` in TensorFlow 2.0. Note that, the default value of `epsilon` is changed to `1e-3` in the new API from `1e-12`, and this may introduce numerical differences. Please check the new API and use that instead.
+/content/RelGAN/utils/models/relational_memory.py:117:14: ERROR: Using member tf.contrib.layers.layer_norm in deprecated module tf.contrib. tf.contrib.layers.layer_norm cannot be converted automatically. tf.contrib will not be distributed with TensorFlow 2.0, please consider an alternative in non-contrib TensorFlow, a community-maintained repository such as tensorflow/addons, or fork the required code.
+/content/RelGAN/utils/models/relational_memory.py:208:21: WARNING: tf.contrib.layers.layer_norm requires manual check. (Manual edit required) `tf.contrib.layers.layer_norm` has been deprecated, and its implementation has been integrated with `tf.keras.layers.LayerNormalization` in TensorFlow 2.0. Note that, the default value of `epsilon` is changed to `1e-3` in the new API from `1e-12`, and this may introduce numerical differences. Please check the new API and use that instead.
+/content/RelGAN/utils/models/relational_memory.py:208:21: ERROR: Using member tf.contrib.layers.layer_norm in deprecated module tf.contrib. tf.contrib.layers.layer_norm cannot be converted automatically. tf.contrib will not be distributed with TensorFlow 2.0, please consider an alternative in non-contrib TensorFlow, a community-maintained repository such as tensorflow/addons, or fork the required code.
+/content/RelGAN/utils/models/relational_memory.py:218:21: WARNING: tf.contrib.layers.layer_norm requires manual check. (Manual edit required) `tf.contrib.layers.layer_norm` has been deprecated, and its implementation has been integrated with `tf.keras.layers.LayerNormalization` in TensorFlow 2.0. Note that, the default value of `epsilon` is changed to `1e-3` in the new API from `1e-12`, and this may introduce numerical differences. Please check the new API and use that instead.
+/content/RelGAN/utils/models/relational_memory.py:218:21: ERROR: Using member tf.contrib.layers.layer_norm in deprecated module tf.contrib. tf.contrib.layers.layer_norm cannot be converted automatically. tf.contrib will not be distributed with TensorFlow 2.0, please consider an alternative in non-contrib TensorFlow, a community-maintained repository such as tensorflow/addons, or fork the required code.
+--------------------------------------------------------------------------------
+File: /content/RelGAN/utils/ops.py
+--------------------------------------------------------------------------------
+/content/RelGAN/utils/ops.py:51:12: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/utils/ops.py:58:24: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/utils/ops.py:109:12: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/utils/ops.py:113:12: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/utils/ops.py:132:12: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/utils/ops.py:145:8: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/utils/ops.py:171:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/utils/ops.py:172:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+--------------------------------------------------------------------------------
+File: /content/RelGAN/models/rmc_vanilla.py
+--------------------------------------------------------------------------------
+/content/RelGAN/models/rmc_vanilla.py:14:19: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/models/rmc_vanilla.py:39:16: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/models/rmc_vanilla.py:52:51: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/models/rmc_vanilla.py:61:25: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/models/rmc_vanilla.py:79:51: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/models/rmc_vanilla.py:105:19: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+--------------------------------------------------------------------------------
+File: /content/RelGAN/models/rmc_att.py
+--------------------------------------------------------------------------------
+/content/RelGAN/models/rmc_att.py:14:19: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/models/rmc_att.py:39:16: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/models/rmc_att.py:52:51: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/models/rmc_att.py:61:25: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/models/rmc_att.py:79:51: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/models/rmc_att.py:96:19: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/models/rmc_att.py:119:10: ERROR: Using member tf.contrib.layers.flatten in deprecated module tf.contrib. tf.contrib.layers.flatten cannot be converted automatically. tf.contrib will not be distributed with TensorFlow 2.0, please consider an alternative in non-contrib TensorFlow, a community-maintained repository such as tensorflow/addons, or fork the required code.
+--------------------------------------------------------------------------------
+File: /content/RelGAN/utils/metrics/DocEmbSim.py
+--------------------------------------------------------------------------------
+/content/RelGAN/utils/metrics/DocEmbSim.py:118:20: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/utils/metrics/DocEmbSim.py:121:16: WARNING: tf.nn.sampled_softmax_loss requires manual check. `partition_strategy` has been removed from tf.nn.sampled_softmax_loss.  The 'div' strategy will be used by default.
+/content/RelGAN/utils/metrics/DocEmbSim.py:129:31: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+--------------------------------------------------------------------------------
+File: /content/RelGAN/models/rmc_vdcnn.py
+--------------------------------------------------------------------------------
+/content/RelGAN/models/rmc_vdcnn.py:24:19: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/models/rmc_vdcnn.py:49:16: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/models/rmc_vdcnn.py:62:51: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/models/rmc_vdcnn.py:71:25: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/models/rmc_vdcnn.py:89:51: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/models/rmc_vdcnn.py:108:19: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+--------------------------------------------------------------------------------
+File: /content/RelGAN/oracle/oracle_gan/oracle_train.py
+--------------------------------------------------------------------------------
+/content/RelGAN/oracle/oracle_gan/oracle_train.py:133:16: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+/content/RelGAN/oracle/oracle_gan/oracle_train.py:185:16: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+--------------------------------------------------------------------------------
+File: /content/RelGAN/real/real_gan/real_train.py
+--------------------------------------------------------------------------------
+/content/RelGAN/real/real_gan/real_train.py:141:16: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+/content/RelGAN/real/real_gan/real_train.py:193:16: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+--------------------------------------------------------------------------------
+File: /content/RelGAN/models/lstm_vanilla.py
+--------------------------------------------------------------------------------
+/content/RelGAN/models/lstm_vanilla.py:11:19: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/models/lstm_vanilla.py:37:16: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/models/lstm_vanilla.py:50:51: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/models/lstm_vanilla.py:59:25: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/models/lstm_vanilla.py:77:51: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/models/lstm_vanilla.py:101:19: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/models/lstm_vanilla.py:144:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/models/lstm_vanilla.py:145:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/models/lstm_vanilla.py:146:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/models/lstm_vanilla.py:148:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/models/lstm_vanilla.py:149:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/models/lstm_vanilla.py:150:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/models/lstm_vanilla.py:152:10: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/models/lstm_vanilla.py:153:10: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/models/lstm_vanilla.py:154:10: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/models/lstm_vanilla.py:156:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/models/lstm_vanilla.py:157:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/models/lstm_vanilla.py:158:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/models/lstm_vanilla.py:199:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+/content/RelGAN/models/lstm_vanilla.py:200:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+--------------------------------------------------------------------------------
+File: /content/RelGAN/utils/models/OracleLstm.py
+--------------------------------------------------------------------------------
+/content/RelGAN/utils/models/OracleLstm.py:32:44: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/utils/models/OracleLstm.py:50:20: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/utils/models/OracleLstm.py:61:23: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/utils/models/OracleLstm.py:87:23: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+/content/RelGAN/utils/models/OracleLstm.py:205:32: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+================================================================================
+Detailed log follows:
+
+================================================================================
+================================================================================
+Input tree: '/content/RelGAN/'
+================================================================================
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/run.py'
+ outputting to '/content/RelGANv2/run.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/test_coco_model.py'
+ outputting to '/content/RelGANv2/test_coco_model.py'
+--------------------------------------------------------------------------------
+
+64:9: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+71:5: INFO: Renamed 'tf.Session' to 'tf.compat.v1.Session'
+73:16: INFO: Renamed 'tf.train.import_meta_graph' to 'tf.compat.v1.train.import_meta_graph'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/models/__init__.py'
+ outputting to '/content/RelGANv2/models/__init__.py'
+--------------------------------------------------------------------------------
+
+21:11: INFO: Renamed 'tf.make_template' to 'tf.compat.v1.make_template'
+27:11: INFO: Renamed 'tf.make_template' to 'tf.compat.v1.make_template'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/models/lstm_vanilla.py'
+ outputting to '/content/RelGANv2/models/lstm_vanilla.py'
+--------------------------------------------------------------------------------
+
+11:19: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+11:19: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+31:38: INFO: Added keywords to args of function 'tf.argmax'
+37:16: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+37:16: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+39:31: INFO: Added keywords to args of function 'tf.reduce_sum'
+50:51: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+50:51: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+53:12: INFO: Added keywords to args of function 'tf.transpose'
+54:12: INFO: Added keywords to args of function 'tf.transpose'
+56:23: INFO: Added keywords to args of function 'tf.transpose'
+59:12: INFO: Added keywords to args of function 'tf.transpose'
+59:25: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+59:25: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+77:51: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+77:51: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+80:20: INFO: Added keywords to args of function 'tf.transpose'
+84:21: INFO: Added keywords to args of function 'tf.reduce_sum'
+85:19: INFO: Changed tf.to_int32 call to tf.cast(..., dtype=tf.int32).
+85:82: INFO: Renamed 'tf.log' to 'tf.math.log'
+101:19: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+101:19: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+117:17: INFO: Added keywords to args of function 'tf.nn.max_pool'
+117:17: INFO: Renamed keyword argument for tf.nn.max_pool from value to input
+117:17: INFO: Renamed 'tf.nn.max_pool' to 'tf.nn.max_pool2d'
+132:13: INFO: Changing keep_prob arg of tf.nn.dropout to rate, and recomputing value.
+
+144:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+144:9: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+145:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+145:9: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+146:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+146:9: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+148:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+148:9: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+149:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+149:9: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+150:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+150:9: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+152:10: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+152:10: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+153:10: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+153:10: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+154:10: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+154:10: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+156:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+156:9: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+157:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+157:9: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+158:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+158:9: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+199:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+199:9: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+200:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+200:9: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/models/rmc_att.py'
+ outputting to '/content/RelGANv2/models/rmc_att.py'
+--------------------------------------------------------------------------------
+
+14:19: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+14:19: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+33:38: INFO: Added keywords to args of function 'tf.argmax'
+39:16: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+39:16: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+41:31: INFO: Added keywords to args of function 'tf.reduce_sum'
+52:51: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+52:51: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+55:12: INFO: Added keywords to args of function 'tf.transpose'
+56:12: INFO: Added keywords to args of function 'tf.transpose'
+58:23: INFO: Added keywords to args of function 'tf.transpose'
+61:12: INFO: Added keywords to args of function 'tf.transpose'
+61:25: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+61:25: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+79:51: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+79:51: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+82:20: INFO: Added keywords to args of function 'tf.transpose'
+86:21: INFO: Added keywords to args of function 'tf.reduce_sum'
+87:19: INFO: Changed tf.to_int32 call to tf.cast(..., dtype=tf.int32).
+87:82: INFO: Renamed 'tf.log' to 'tf.math.log'
+96:19: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+96:19: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+119:10: ERROR: Using member tf.contrib.layers.flatten in deprecated module tf.contrib. tf.contrib.layers.flatten cannot be converted automatically. tf.contrib will not be distributed with TensorFlow 2.0, please consider an alternative in non-contrib TensorFlow, a community-maintained repository such as tensorflow/addons, or fork the required code.
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/models/rmc_vdcnn.py'
+ outputting to '/content/RelGANv2/models/rmc_vdcnn.py'
+--------------------------------------------------------------------------------
+
+12:18: INFO: Renamed 'tf.keras.initializers.he_normal' to 'tf.compat.v1.keras.initializers.he_normal'
+13:17: INFO: tf.truncated_normal_initializer requires manual check. Initializers no longer have the dtype argument in the constructor or partition_info argument in the __call__ method.
+The calls have been converted to compat.v1 for safety (even though they may already have been correct).
+13:17: INFO: Renamed 'tf.truncated_normal_initializer' to 'tf.compat.v1.truncated_normal_initializer'
+24:19: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+24:19: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+43:38: INFO: Added keywords to args of function 'tf.argmax'
+49:16: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+49:16: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+51:31: INFO: Added keywords to args of function 'tf.reduce_sum'
+62:51: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+62:51: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+65:12: INFO: Added keywords to args of function 'tf.transpose'
+66:12: INFO: Added keywords to args of function 'tf.transpose'
+68:23: INFO: Added keywords to args of function 'tf.transpose'
+71:12: INFO: Added keywords to args of function 'tf.transpose'
+71:25: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+71:25: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+89:51: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+89:51: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+92:20: INFO: Added keywords to args of function 'tf.transpose'
+96:21: INFO: Added keywords to args of function 'tf.reduce_sum'
+97:19: INFO: Changed tf.to_int32 call to tf.cast(..., dtype=tf.int32).
+97:82: INFO: Renamed 'tf.log' to 'tf.math.log'
+108:19: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+108:19: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+116:9: INFO: Renamed 'tf.variable_scope' to 'tf.compat.v1.variable_scope'
+117:16: INFO: Renamed 'tf.layers.conv2d' to 'tf.compat.v1.layers.conv2d'
+134:8: INFO: Added keywords to args of function 'tf.transpose'
+143:13: INFO: Renamed 'tf.layers.dense' to 'tf.compat.v1.layers.dense'
+151:9: INFO: Renamed 'tf.variable_scope' to 'tf.compat.v1.variable_scope'
+154:17: INFO: Renamed 'tf.variable_scope' to 'tf.compat.v1.variable_scope'
+156:23: INFO: Renamed 'tf.layers.conv2d' to 'tf.compat.v1.layers.conv2d'
+163:23: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+169:19: INFO: Renamed 'tf.layers.max_pooling2d' to 'tf.compat.v1.layers.max_pooling2d'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/models/rmc_vanilla.py'
+ outputting to '/content/RelGANv2/models/rmc_vanilla.py'
+--------------------------------------------------------------------------------
+
+14:19: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+14:19: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+33:38: INFO: Added keywords to args of function 'tf.argmax'
+39:16: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+39:16: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+41:31: INFO: Added keywords to args of function 'tf.reduce_sum'
+52:51: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+52:51: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+55:12: INFO: Added keywords to args of function 'tf.transpose'
+56:12: INFO: Added keywords to args of function 'tf.transpose'
+58:23: INFO: Added keywords to args of function 'tf.transpose'
+61:12: INFO: Added keywords to args of function 'tf.transpose'
+61:25: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+61:25: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+79:51: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+79:51: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+82:20: INFO: Added keywords to args of function 'tf.transpose'
+86:21: INFO: Added keywords to args of function 'tf.reduce_sum'
+87:19: INFO: Changed tf.to_int32 call to tf.cast(..., dtype=tf.int32).
+87:82: INFO: Renamed 'tf.log' to 'tf.math.log'
+105:19: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+105:19: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+121:17: INFO: Added keywords to args of function 'tf.nn.max_pool'
+121:17: INFO: Renamed keyword argument for tf.nn.max_pool from value to input
+121:17: INFO: Renamed 'tf.nn.max_pool' to 'tf.nn.max_pool2d'
+136:13: INFO: Changing keep_prob arg of tf.nn.dropout to rate, and recomputing value.
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/utils/text_process.py'
+ outputting to '/content/RelGANv2/utils/text_process.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/utils/__init__.py'
+ outputting to '/content/RelGANv2/utils/__init__.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/utils/ops.py'
+ outputting to '/content/RelGANv2/utils/ops.py'
+--------------------------------------------------------------------------------
+
+10:16: INFO: Added keywords to args of function 'tf.reduce_sum'
+20:11: INFO: tf.truncated_normal_initializer requires manual check. Initializers no longer have the dtype argument in the constructor or partition_info argument in the __call__ method.
+The calls have been converted to compat.v1 for safety (even though they may already have been correct).
+20:11: INFO: Renamed 'tf.truncated_normal_initializer' to 'tf.compat.v1.truncated_normal_initializer'
+25:11: INFO: tf.zeros_initializer requires manual check. Initializers no longer have the dtype argument in the constructor or partition_info argument in the __call__ method.
+The calls have been converted to compat.v1 for safety (even though they may already have been correct).
+25:11: INFO: Renamed 'tf.zeros_initializer' to 'tf.compat.v1.zeros_initializer'
+50:9: INFO: Renamed 'tf.variable_scope' to 'tf.compat.v1.variable_scope'
+51:12: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+51:12: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+56:36: INFO: Added keywords to args of function 'tf.transpose'
+58:24: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+58:24: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+73:9: INFO: Renamed 'tf.variable_scope' to 'tf.compat.v1.variable_scope'
+108:9: INFO: Renamed 'tf.variable_scope' to 'tf.compat.v1.variable_scope'
+109:12: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+109:12: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+110:40: INFO: tf.truncated_normal_initializer requires manual check. Initializers no longer have the dtype argument in the constructor or partition_info argument in the __call__ method.
+The calls have been converted to compat.v1 for safety (even though they may already have been correct).
+110:40: INFO: Renamed 'tf.truncated_normal_initializer' to 'tf.compat.v1.truncated_normal_initializer'
+113:12: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+113:12: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+113:66: INFO: tf.zeros_initializer requires manual check. Initializers no longer have the dtype argument in the constructor or partition_info argument in the __call__ method.
+The calls have been converted to compat.v1 for safety (even though they may already have been correct).
+113:66: INFO: Renamed 'tf.zeros_initializer' to 'tf.compat.v1.zeros_initializer'
+114:15: INFO: Added keywords to args of function 'tf.nn.conv2d'
+114:15: INFO: Renamed keyword argument for tf.nn.conv2d from filter to filters
+129:11: INFO: Renamed keyword argument for tf.nn.softmax from dim to axis
+132:12: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+132:12: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+132:54: INFO: tf.constant_initializer requires manual check. Initializers no longer have the dtype argument in the constructor or partition_info argument in the __call__ method.
+The calls have been converted to compat.v1 for safety (even though they may already have been correct).
+132:54: INFO: Renamed 'tf.constant_initializer' to 'tf.compat.v1.constant_initializer'
+145:8: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+145:8: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+145:59: INFO: tf.truncated_normal_initializer requires manual check. Initializers no longer have the dtype argument in the constructor or partition_info argument in the __call__ method.
+The calls have been converted to compat.v1 for safety (even though they may already have been correct).
+145:59: INFO: Renamed 'tf.truncated_normal_initializer' to 'tf.compat.v1.truncated_normal_initializer'
+154:30: INFO: Added keywords to args of function 'tf.transpose'
+160:43: INFO: Added keywords to args of function 'tf.transpose'
+171:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+171:9: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+172:9: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
+172:9: INFO: Renamed 'tf.get_variable' to 'tf.compat.v1.get_variable'
+183:8: INFO: Renamed 'tf.random_uniform' to 'tf.random.uniform'
+183:26: INFO: Added keywords to args of function 'tf.shape'
+184:11: INFO: Renamed 'tf.log' to 'tf.math.log'
+184:19: INFO: Renamed 'tf.log' to 'tf.math.log'
+193:16: INFO: Renamed 'tf.log' to 'tf.math.log'
+195:8: INFO: Renamed 'tf.random_uniform' to 'tf.random.uniform'
+195:26: INFO: Added keywords to args of function 'tf.shape'
+200:14: INFO: Renamed 'tf.log' to 'tf.math.log'
+200:22: INFO: Renamed 'tf.log' to 'tf.math.log'
+201:26: INFO: Added keywords to args of function 'tf.reduce_logsumexp'
+201:26: INFO: Renamed keyword argument for tf.reduce_logsumexp from keep_dims to keepdims
+202:16: INFO: Added keywords to args of function 'tf.reduce_sum'
+202:16: INFO: Renamed keyword argument for tf.reduce_sum from keep_dims to keepdims
+210:12: INFO: Renamed 'tf.random_uniform' to 'tf.random.uniform'
+215:11: INFO: Added keywords to args of function 'tf.gradients'
+216:16: INFO: Added keywords to args of function 'tf.norm'
+216:24: INFO: Renamed 'tf.layers.flatten' to 'tf.compat.v1.layers.flatten'
+218:31: INFO: Added keywords to args of function 'tf.reduce_mean'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/utils/utils.py'
+ outputting to '/content/RelGANv2/utils/utils.py'
+--------------------------------------------------------------------------------
+
+36:13: INFO: Renamed 'tf.ConfigProto' to 'tf.compat.v1.ConfigProto'
+38:11: INFO: Renamed 'tf.Session' to 'tf.compat.v1.Session'
+39:13: INFO: Renamed 'tf.global_variables_initializer' to 'tf.compat.v1.global_variables_initializer'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/utils/models/__init__.py'
+ outputting to '/content/RelGANv2/utils/models/__init__.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/utils/models/OracleLstm.py'
+ outputting to '/content/RelGANv2/utils/models/OracleLstm.py'
+--------------------------------------------------------------------------------
+
+17:13: INFO: Renamed 'tf.variable_scope' to 'tf.compat.v1.variable_scope'
+18:12: INFO: Renamed 'tf.set_random_seed' to 'tf.compat.v1.set_random_seed'
+20:16: INFO: Renamed 'tf.random_normal' to 'tf.random.normal'
+26:17: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+31:12: INFO: Renamed 'tf.set_random_seed' to 'tf.compat.v1.set_random_seed'
+32:31: INFO: Added keywords to args of function 'tf.transpose'
+32:44: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+32:44: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+48:23: INFO: Renamed 'tf.log' to 'tf.math.log'
+49:44: INFO: Added keywords to args of function 'tf.multinomial'
+49:44: INFO: Renamed 'tf.multinomial' to 'tf.random.categorical'
+50:20: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+50:20: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+51:35: INFO: Added keywords to args of function 'tf.reduce_sum'
+61:23: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+61:23: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+65:21: INFO: Added keywords to args of function 'tf.transpose'
+87:23: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+87:23: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+90:29: INFO: Added keywords to args of function 'tf.transpose'
+94:30: INFO: Added keywords to args of function 'tf.reduce_sum'
+95:23: INFO: Changed tf.to_int32 call to tf.cast(..., dtype=tf.int32).
+95:95: INFO: Renamed 'tf.log' to 'tf.math.log'
+98:24: INFO: Added keywords to args of function 'tf.reduce_sum'
+100:17: INFO: Added keywords to args of function 'tf.reduce_sum'
+101:31: INFO: Changed tf.to_int32 call to tf.cast(..., dtype=tf.int32).
+101:103: INFO: Renamed 'tf.log' to 'tf.math.log'
+113:15: INFO: Renamed 'tf.random_normal' to 'tf.random.normal'
+117:30: INFO: Renamed 'tf.random_normal' to 'tf.random.normal'
+118:30: INFO: Renamed 'tf.random_normal' to 'tf.random.normal'
+119:30: INFO: Renamed 'tf.random_normal' to 'tf.random.normal'
+121:30: INFO: Renamed 'tf.random_normal' to 'tf.random.normal'
+122:30: INFO: Renamed 'tf.random_normal' to 'tf.random.normal'
+123:30: INFO: Renamed 'tf.random_normal' to 'tf.random.normal'
+125:31: INFO: Renamed 'tf.random_normal' to 'tf.random.normal'
+126:31: INFO: Renamed 'tf.random_normal' to 'tf.random.normal'
+127:31: INFO: Renamed 'tf.random_normal' to 'tf.random.normal'
+129:30: INFO: Renamed 'tf.random_normal' to 'tf.random.normal'
+130:30: INFO: Renamed 'tf.random_normal' to 'tf.random.normal'
+131:30: INFO: Renamed 'tf.random_normal' to 'tf.random.normal'
+176:30: INFO: Renamed 'tf.random_normal' to 'tf.random.normal'
+177:30: INFO: Renamed 'tf.random_normal' to 'tf.random.normal'
+197:28: INFO: Added keywords to args of function 'tf.reduce_sum'
+197:28: INFO: Renamed keyword argument for tf.reduce_sum from keep_dims to keepdims
+201:56: INFO: Added keywords to args of function 'tf.transpose'
+202:22: INFO: Renamed 'tf.svd' to 'tf.linalg.svd'
+205:32: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+205:32: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+207:59: INFO: Added keywords to args of function 'tf.transpose'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/utils/models/relational_memory.py'
+ outputting to '/content/RelGANv2/utils/models/relational_memory.py'
+--------------------------------------------------------------------------------
+
+69:25: INFO: Renamed 'tf.make_template' to 'tf.compat.v1.make_template'
+117:14: WARNING: tf.contrib.layers.layer_norm requires manual check. (Manual edit required) `tf.contrib.layers.layer_norm` has been deprecated, and its implementation has been integrated with `tf.keras.layers.LayerNormalization` in TensorFlow 2.0. Note that, the default value of `epsilon` is changed to `1e-3` in the new API from `1e-12`, and this may introduce numerical differences. Please check the new API and use that instead.
+117:14: ERROR: Using member tf.contrib.layers.layer_norm in deprecated module tf.contrib. tf.contrib.layers.layer_norm cannot be converted automatically. tf.contrib will not be distributed with TensorFlow 2.0, please consider an alternative in non-contrib TensorFlow, a community-maintained repository such as tensorflow/addons, or fork the required code.
+123:24: INFO: Added keywords to args of function 'tf.transpose'
+133:27: INFO: Added keywords to args of function 'tf.transpose'
+208:21: WARNING: tf.contrib.layers.layer_norm requires manual check. (Manual edit required) `tf.contrib.layers.layer_norm` has been deprecated, and its implementation has been integrated with `tf.keras.layers.LayerNormalization` in TensorFlow 2.0. Note that, the default value of `epsilon` is changed to `1e-3` in the new API from `1e-12`, and this may introduce numerical differences. Please check the new API and use that instead.
+208:21: ERROR: Using member tf.contrib.layers.layer_norm in deprecated module tf.contrib. tf.contrib.layers.layer_norm cannot be converted automatically. tf.contrib will not be distributed with TensorFlow 2.0, please consider an alternative in non-contrib TensorFlow, a community-maintained repository such as tensorflow/addons, or fork the required code.
+218:21: WARNING: tf.contrib.layers.layer_norm requires manual check. (Manual edit required) `tf.contrib.layers.layer_norm` has been deprecated, and its implementation has been integrated with `tf.keras.layers.LayerNormalization` in TensorFlow 2.0. Note that, the default value of `epsilon` is changed to `1e-3` in the new API from `1e-12`, and this may introduce numerical differences. Please check the new API and use that instead.
+218:21: ERROR: Using member tf.contrib.layers.layer_norm in deprecated module tf.contrib. tf.contrib.layers.layer_norm cannot be converted automatically. tf.contrib will not be distributed with TensorFlow 2.0, please consider an alternative in non-contrib TensorFlow, a community-maintained repository such as tensorflow/addons, or fork the required code.
+284:15: INFO: Renamed 'tf.get_collection' to 'tf.compat.v1.get_collection'
+284:33: INFO: Renamed 'tf.GraphKeys' to 'tf.compat.v1.GraphKeys'
+288:21: INFO: Renamed 'tf.get_collection' to 'tf.compat.v1.get_collection'
+288:39: INFO: Renamed 'tf.GraphKeys' to 'tf.compat.v1.GraphKeys'
+296:21: INFO: Renamed 'tf.get_collection' to 'tf.compat.v1.get_collection'
+296:39: INFO: Renamed 'tf.GraphKeys' to 'tf.compat.v1.GraphKeys'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/utils/metrics/Bleu.py'
+ outputting to '/content/RelGANv2/utils/metrics/Bleu.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/utils/metrics/__init__.py'
+ outputting to '/content/RelGANv2/utils/metrics/__init__.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/utils/metrics/SelfBleu.py'
+ outputting to '/content/RelGANv2/utils/metrics/SelfBleu.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/utils/metrics/Metrics.py'
+ outputting to '/content/RelGANv2/utils/metrics/Metrics.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/utils/metrics/DocEmbSim.py'
+ outputting to '/content/RelGANv2/utils/metrics/DocEmbSim.py'
+--------------------------------------------------------------------------------
+
+104:28: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+105:27: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+110:16: INFO: Renamed 'tf.random_uniform' to 'tf.random.uniform'
+112:16: INFO: Renamed 'tf.truncated_normal' to 'tf.random.truncated_normal'
+118:20: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+118:20: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+120:19: INFO: Added keywords to args of function 'tf.reduce_mean'
+121:16: WARNING: tf.nn.sampled_softmax_loss requires manual check. `partition_strategy` has been removed from tf.nn.sampled_softmax_loss.  The 'div' strategy will be used by default.
+124:24: INFO: Renamed 'tf.train.AdagradOptimizer' to 'tf.compat.v1.train.AdagradOptimizer'
+127:27: INFO: Added keywords to args of function 'tf.reduce_sum'
+127:27: INFO: Renamed keyword argument for tf.reduce_sum from keep_dims to keepdims
+129:31: INFO: Added keywords to args of function 'tf.nn.embedding_lookup'
+129:31: WARNING: tf.nn.embedding_lookup requires manual check. `partition_strategy` has been removed from tf.nn.embedding_lookup.  The 'div' strategy will be used by default.
+131:53: INFO: Added keywords to args of function 'tf.transpose'
+135:13: INFO: Renamed 'tf.Session' to 'tf.compat.v1.Session'
+136:12: INFO: Renamed 'tf.global_variables_initializer' to 'tf.compat.v1.global_variables_initializer'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/utils/metrics/Nll.py'
+ outputting to '/content/RelGANv2/utils/metrics/Nll.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/real/__init__.py'
+ outputting to '/content/RelGANv2/real/__init__.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/real/experiments/__init__.py'
+ outputting to '/content/RelGANv2/real/experiments/__init__.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/real/experiments/coco_relgan.py'
+ outputting to '/content/RelGANv2/real/experiments/coco_relgan.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/real/experiments/emnlp_relgan.py'
+ outputting to '/content/RelGANv2/real/experiments/emnlp_relgan.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/real/real_gan/__init__.py'
+ outputting to '/content/RelGANv2/real/real_gan/__init__.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/real/real_gan/real_loader.py'
+ outputting to '/content/RelGANv2/real/real_gan/real_loader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/real/real_gan/real_train.py'
+ outputting to '/content/RelGANv2/real/real_gan/real_train.py'
+--------------------------------------------------------------------------------
+
+54:13: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+78:16: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+83:15: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+88:8: INFO: tf.summary.scalar requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+88:8: INFO: Renamed 'tf.summary.scalar' to 'tf.compat.v1.summary.scalar'
+89:8: INFO: tf.summary.scalar requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+89:8: INFO: Renamed 'tf.summary.scalar' to 'tf.compat.v1.summary.scalar'
+90:8: INFO: tf.summary.scalar requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+90:8: INFO: Renamed 'tf.summary.scalar' to 'tf.compat.v1.summary.scalar'
+91:8: INFO: tf.summary.scalar requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+91:8: INFO: Renamed 'tf.summary.scalar' to 'tf.compat.v1.summary.scalar'
+92:8: INFO: tf.summary.scalar requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+92:8: INFO: Renamed 'tf.summary.scalar' to 'tf.compat.v1.summary.scalar'
+94:22: INFO: tf.summary.merge requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+94:22: INFO: Renamed 'tf.summary.merge' to 'tf.compat.v1.summary.merge'
+100:12: INFO: Renamed 'tf.train.Saver' to 'tf.compat.v1.train.Saver'
+105:21: INFO: tf.summary.FileWriter requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+105:21: INFO: Renamed 'tf.summary.FileWriter' to 'tf.compat.v1.summary.FileWriter'
+141:16: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+193:16: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+202:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+205:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+210:17: INFO: Added keywords to args of function 'tf.reduce_mean'
+215:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+218:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+226:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+229:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+234:17: INFO: Added keywords to args of function 'tf.reduce_mean'
+237:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+238:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+241:18: INFO: Added keywords to args of function 'tf.reduce_mean'
+244:17: INFO: Added keywords to args of function 'tf.reduce_mean'
+245:17: INFO: Added keywords to args of function 'tf.reduce_mean'
+248:17: INFO: Added keywords to args of function 'tf.reduce_mean'
+248:46: INFO: Added keywords to args of function 'tf.reduce_mean'
+252:18: INFO: Added keywords to args of function 'tf.reduce_mean'
+255:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+255:37: INFO: Renamed 'tf.squared_difference' to 'tf.math.squared_difference'
+256:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+259:17: INFO: Added keywords to args of function 'tf.reduce_mean'
+259:32: INFO: Renamed 'tf.squared_difference' to 'tf.math.squared_difference'
+262:17: INFO: Added keywords to args of function 'tf.reduce_mean'
+265:17: INFO: Added keywords to args of function 'tf.reduce_mean'
+272:13: INFO: Added keywords to args of function 'tf.reduce_mean'
+272:28: INFO: Renamed 'tf.log' to 'tf.math.log'
+285:13: INFO: Renamed 'tf.get_collection' to 'tf.compat.v1.get_collection'
+285:31: INFO: Renamed 'tf.GraphKeys' to 'tf.compat.v1.GraphKeys'
+286:13: INFO: Renamed 'tf.get_collection' to 'tf.compat.v1.get_collection'
+286:31: INFO: Renamed 'tf.GraphKeys' to 'tf.compat.v1.GraphKeys'
+291:19: INFO: Renamed 'tf.train.AdamOptimizer' to 'tf.compat.v1.train.AdamOptimizer'
+292:46: INFO: Added keywords to args of function 'tf.gradients'
+297:15: INFO: tf.train.exponential_decay requires manual check. To use learning rate decay schedules with TensorFlow 2.0, switch to the schedules in `tf.keras.optimizers.schedules`.
+
+297:15: INFO: Renamed 'tf.train.exponential_decay' to 'tf.compat.v1.train.exponential_decay'
+298:18: INFO: tf.train.exponential_decay requires manual check. To use learning rate decay schedules with TensorFlow 2.0, switch to the schedules in `tf.keras.optimizers.schedules`.
+
+298:18: INFO: Renamed 'tf.train.exponential_decay' to 'tf.compat.v1.train.exponential_decay'
+302:22: INFO: Renamed 'tf.train.AdamOptimizer' to 'tf.compat.v1.train.AdamOptimizer'
+303:22: INFO: Renamed 'tf.train.AdamOptimizer' to 'tf.compat.v1.train.AdamOptimizer'
+307:22: INFO: Renamed 'tf.train.RMSPropOptimizer' to 'tf.compat.v1.train.RMSPropOptimizer'
+308:22: INFO: Renamed 'tf.train.RMSPropOptimizer' to 'tf.compat.v1.train.RMSPropOptimizer'
+314:40: INFO: Added keywords to args of function 'tf.gradients'
+321:40: INFO: Added keywords to args of function 'tf.gradients'
+355:18: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+357:27: INFO: tf.summary.scalar requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+357:27: INFO: Renamed 'tf.summary.scalar' to 'tf.compat.v1.summary.scalar'
+360:21: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+362:27: INFO: tf.summary.scalar requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+362:27: INFO: Renamed 'tf.summary.scalar' to 'tf.compat.v1.summary.scalar'
+366:22: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+368:31: INFO: tf.summary.scalar requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+368:31: INFO: Renamed 'tf.summary.scalar' to 'tf.compat.v1.summary.scalar'
+372:22: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+374:31: INFO: tf.summary.scalar requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+374:31: INFO: Renamed 'tf.summary.scalar' to 'tf.compat.v1.summary.scalar'
+376:24: INFO: tf.summary.merge requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+376:24: INFO: Renamed 'tf.summary.merge' to 'tf.compat.v1.summary.merge'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/oracle/__init__.py'
+ outputting to '/content/RelGANv2/oracle/__init__.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/oracle/experiments/__init__.py'
+ outputting to '/content/RelGANv2/oracle/experiments/__init__.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/oracle/experiments/oracle_relgan.py'
+ outputting to '/content/RelGANv2/oracle/experiments/oracle_relgan.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/oracle/oracle_gan/__init__.py'
+ outputting to '/content/RelGANv2/oracle/oracle_gan/__init__.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/oracle/oracle_gan/oracle_loader.py'
+ outputting to '/content/RelGANv2/oracle/oracle_gan/oracle_loader.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file '/content/RelGAN/oracle/oracle_gan/oracle_train.py'
+ outputting to '/content/RelGANv2/oracle/oracle_gan/oracle_train.py'
+--------------------------------------------------------------------------------
+
+28:4: INFO: Renamed 'tf.set_random_seed' to 'tf.compat.v1.set_random_seed'
+45:13: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+69:16: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+74:15: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+79:8: INFO: tf.summary.scalar requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+79:8: INFO: Renamed 'tf.summary.scalar' to 'tf.compat.v1.summary.scalar'
+80:8: INFO: tf.summary.scalar requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+80:8: INFO: Renamed 'tf.summary.scalar' to 'tf.compat.v1.summary.scalar'
+81:8: INFO: tf.summary.scalar requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+81:8: INFO: Renamed 'tf.summary.scalar' to 'tf.compat.v1.summary.scalar'
+82:8: INFO: tf.summary.scalar requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+82:8: INFO: Renamed 'tf.summary.scalar' to 'tf.compat.v1.summary.scalar'
+83:8: INFO: tf.summary.scalar requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+83:8: INFO: Renamed 'tf.summary.scalar' to 'tf.compat.v1.summary.scalar'
+85:22: INFO: tf.summary.merge requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+85:22: INFO: Renamed 'tf.summary.merge' to 'tf.compat.v1.summary.merge'
+91:12: INFO: Renamed 'tf.train.Saver' to 'tf.compat.v1.train.Saver'
+96:21: INFO: tf.summary.FileWriter requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+96:21: INFO: Renamed 'tf.summary.FileWriter' to 'tf.compat.v1.summary.FileWriter'
+133:16: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+185:16: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+194:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+197:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+202:17: INFO: Added keywords to args of function 'tf.reduce_mean'
+207:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+210:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+218:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+221:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+226:17: INFO: Added keywords to args of function 'tf.reduce_mean'
+229:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+230:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+233:18: INFO: Added keywords to args of function 'tf.reduce_mean'
+236:17: INFO: Added keywords to args of function 'tf.reduce_mean'
+237:17: INFO: Added keywords to args of function 'tf.reduce_mean'
+240:17: INFO: Added keywords to args of function 'tf.reduce_mean'
+240:46: INFO: Added keywords to args of function 'tf.reduce_mean'
+244:18: INFO: Added keywords to args of function 'tf.reduce_mean'
+247:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+247:37: INFO: Renamed 'tf.squared_difference' to 'tf.math.squared_difference'
+248:22: INFO: Added keywords to args of function 'tf.reduce_mean'
+251:17: INFO: Added keywords to args of function 'tf.reduce_mean'
+251:32: INFO: Renamed 'tf.squared_difference' to 'tf.math.squared_difference'
+254:17: INFO: Added keywords to args of function 'tf.reduce_mean'
+257:17: INFO: Added keywords to args of function 'tf.reduce_mean'
+264:13: INFO: Added keywords to args of function 'tf.reduce_mean'
+264:28: INFO: Renamed 'tf.log' to 'tf.math.log'
+277:13: INFO: Renamed 'tf.get_collection' to 'tf.compat.v1.get_collection'
+277:31: INFO: Renamed 'tf.GraphKeys' to 'tf.compat.v1.GraphKeys'
+278:13: INFO: Renamed 'tf.get_collection' to 'tf.compat.v1.get_collection'
+278:31: INFO: Renamed 'tf.GraphKeys' to 'tf.compat.v1.GraphKeys'
+283:19: INFO: Renamed 'tf.train.AdamOptimizer' to 'tf.compat.v1.train.AdamOptimizer'
+284:46: INFO: Added keywords to args of function 'tf.gradients'
+288:15: INFO: tf.train.exponential_decay requires manual check. To use learning rate decay schedules with TensorFlow 2.0, switch to the schedules in `tf.keras.optimizers.schedules`.
+
+288:15: INFO: Renamed 'tf.train.exponential_decay' to 'tf.compat.v1.train.exponential_decay'
+289:18: INFO: tf.train.exponential_decay requires manual check. To use learning rate decay schedules with TensorFlow 2.0, switch to the schedules in `tf.keras.optimizers.schedules`.
+
+289:18: INFO: Renamed 'tf.train.exponential_decay' to 'tf.compat.v1.train.exponential_decay'
+292:22: INFO: Renamed 'tf.train.AdamOptimizer' to 'tf.compat.v1.train.AdamOptimizer'
+293:22: INFO: Renamed 'tf.train.AdamOptimizer' to 'tf.compat.v1.train.AdamOptimizer'
+295:22: INFO: Renamed 'tf.train.RMSPropOptimizer' to 'tf.compat.v1.train.RMSPropOptimizer'
+296:22: INFO: Renamed 'tf.train.RMSPropOptimizer' to 'tf.compat.v1.train.RMSPropOptimizer'
+301:40: INFO: Added keywords to args of function 'tf.gradients'
+308:40: INFO: Added keywords to args of function 'tf.gradients'
+336:21: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+338:27: INFO: tf.summary.scalar requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+338:27: INFO: Renamed 'tf.summary.scalar' to 'tf.compat.v1.summary.scalar'
+341:18: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+343:27: INFO: tf.summary.scalar requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+343:27: INFO: Renamed 'tf.summary.scalar' to 'tf.compat.v1.summary.scalar'
+346:21: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+348:27: INFO: tf.summary.scalar requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+348:27: INFO: Renamed 'tf.summary.scalar' to 'tf.compat.v1.summary.scalar'
+350:24: INFO: tf.summary.merge requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+350:24: INFO: Renamed 'tf.summary.merge' to 'tf.compat.v1.summary.merge'
+--------------------------------------------------------------------------------
+

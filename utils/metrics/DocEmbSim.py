@@ -101,39 +101,39 @@ class DocEmbSim(Metrics):
         with graph.as_default():
 
             # Input data.
-            train_dataset = tf.placeholder(tf.int32, shape=[batch_size])
-            train_labels = tf.placeholder(tf.int32, shape=[batch_size, 1])
+            train_dataset = tf.compat.v1.placeholder(tf.int32, shape=[batch_size])
+            train_labels = tf.compat.v1.placeholder(tf.int32, shape=[batch_size, 1])
             valid_dataset = tf.constant(self.valid_examples, dtype=tf.int32)
 
             # initial Variables.
             embeddings = tf.Variable(
-                tf.random_uniform([vocabulary_size, embedding_size], -1.0, 1.0, seed=11))
+                tf.random.uniform([vocabulary_size, embedding_size], -1.0, 1.0, seed=11))
             softmax_weights = tf.Variable(
-                tf.truncated_normal([vocabulary_size, embedding_size],
+                tf.random.truncated_normal([vocabulary_size, embedding_size],
                                     stddev=1.0 / math.sqrt(embedding_size), seed=12))
             softmax_biases = tf.Variable(tf.zeros([vocabulary_size]))
 
             # Model.
             # Look up embeddings for inputs.
-            embed = tf.nn.embedding_lookup(embeddings, train_dataset)
+            embed = tf.nn.embedding_lookup(params=embeddings, ids=train_dataset)
             # Compute the softmax loss, using a sample of the negative labels each time.
             loss = tf.reduce_mean(
-                tf.nn.sampled_softmax_loss(weights=softmax_weights, biases=softmax_biases, inputs=embed,
+                input_tensor=tf.nn.sampled_softmax_loss(weights=softmax_weights, biases=softmax_biases, inputs=embed,
                                            labels=train_labels, num_sampled=num_sampled, num_classes=vocabulary_size))
 
-            optimizer = tf.train.AdagradOptimizer(1.0).minimize(loss)
+            optimizer = tf.compat.v1.train.AdagradOptimizer(1.0).minimize(loss)
 
             # Compute the similarity between minibatch examples and all embeddings.
-            norm = tf.sqrt(tf.reduce_sum(tf.square(embeddings), 1, keep_dims=True))
+            norm = tf.sqrt(tf.reduce_sum(input_tensor=tf.square(embeddings), axis=1, keepdims=True))
             normalized_embeddings = embeddings / norm
             valid_embeddings = tf.nn.embedding_lookup(
-                normalized_embeddings, valid_dataset)
-            similarity = tf.matmul(valid_embeddings, tf.transpose(normalized_embeddings))
+                params=normalized_embeddings, ids=valid_dataset)
+            similarity = tf.matmul(valid_embeddings, tf.transpose(a=normalized_embeddings))
 
             data = self.read_data(file)
 
-        with tf.Session(graph=graph) as session:
-            tf.global_variables_initializer().run()
+        with tf.compat.v1.Session(graph=graph) as session:
+            tf.compat.v1.global_variables_initializer().run()
             average_loss = 0
             generate_num = len(data)
             for step in range(num_steps):

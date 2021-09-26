@@ -61,16 +61,16 @@ generator = models.get_generator(args.g_architecture, vocab_size=vocab_size, bat
 oracle_loader = RealDataLoader(args.batch_size, seq_len)
 
 # placeholder definitions
-x_real = tf.placeholder(tf.int32, [args.batch_size, seq_len], name="x_real")  # tokens of oracle sequences
+x_real = tf.compat.v1.placeholder(tf.int32, [args.batch_size, seq_len], name="x_real")  # tokens of oracle sequences
 
 temperature = tf.Variable(1., trainable=False, name='temperature')
 
 x_fake_onehot_appr, x_fake, g_pretrain_loss, gen_o = generator(x_real=x_real, temperature=temperature)
 
 
-with tf.Session() as sess:
+with tf.compat.v1.Session() as sess:
     # tf.global_variables_initializer().run()
-    new_saver = tf.train.import_meta_graph(meta_file)
+    new_saver = tf.compat.v1.train.import_meta_graph(meta_file)
     new_saver.restore(sess, tf.train.latest_checkpoint(checkpoint_dir))
 
     index_word_dict = get_oracle_file(data_file, oracle_file, seq_len)

@@ -7,7 +7,7 @@ def hw_flatten(x):
 
 
 def l2_norm(v, eps=1e-12):
-    return v / (tf.reduce_sum(v ** 2) ** 0.5 + eps)
+    return v / (tf.reduce_sum(input_tensor=v ** 2) ** 0.5 + eps)
 
 
 def lrelu(x, alpha=0.2):
@@ -17,12 +17,12 @@ def lrelu(x, alpha=0.2):
 def create_linear_initializer(input_size, dtype=tf.float32):
     """Returns a default initializer for weights of a linear module."""
     stddev = 1 / math.sqrt(input_size * 1.0)
-    return tf.truncated_normal_initializer(stddev=stddev, dtype=dtype)
+    return tf.compat.v1.truncated_normal_initializer(stddev=stddev, dtype=dtype)
 
 
 def create_bias_initializer(dtype=tf.float32):
     """Returns a default initializer for the biases of a linear/AddBias module."""
-    return tf.zeros_initializer(dtype=dtype)
+    return tf.compat.v1.zeros_initializer(dtype=dtype)
 
 
 def linear(input_, output_size, use_bias=False, sn=False, scope=None):
@@ -47,15 +47,15 @@ def linear(input_, output_size, use_bias=False, sn=False, scope=None):
     input_size = shape[1]
 
     # Now the computation.
-    with tf.variable_scope(scope or "Linear"):
-        W = tf.get_variable("Matrix", shape=[output_size, input_size],
+    with tf.compat.v1.variable_scope(scope or "Linear"):
+        W = tf.compat.v1.get_variable("Matrix", shape=[output_size, input_size],
                             initializer=create_linear_initializer(input_size, input_.dtype),
                             dtype=input_.dtype)
         if sn:
             W = spectral_norm(W)
-        output_ = tf.matmul(input_, tf.transpose(W))
+        output_ = tf.matmul(input_, tf.transpose(a=W))
         if use_bias:
-            bias_term = tf.get_variable("Bias", [output_size],
+            bias_term = tf.compat.v1.get_variable("Bias", [output_size],
                                         initializer=create_bias_initializer(input_.dtype),
                                         dtype=input_.dtype)
             output_ += bias_term
@@ -70,7 +70,7 @@ def highway(input_, size, num_layers=1, bias=-2.0, f=tf.nn.relu, scope='Highway'
     where g is nonlinearity, t is transform gate, and (1 - t) is carry gate.
     """
 
-    with tf.variable_scope(scope):
+    with tf.compat.v1.variable_scope(scope):
         for idx in range(num_layers):
             g = f(linear(input_, size, scope='highway_lin_%d' % idx))
 
@@ -105,13 +105,13 @@ def conv2d(input_, out_nums, k_h=2, k_w=1, d_h=2, d_w=1, stddev=None, sn=False, 
     # Glorot initialization
     if stddev is None:
         stddev = math.sqrt(2. / (k_h * k_w * in_nums))
-    with tf.variable_scope(scope or "Conv2d"):
-        W = tf.get_variable("Matrix", shape=[k_h, k_w, in_nums, out_nums],
-                            initializer=tf.truncated_normal_initializer(stddev=stddev))
+    with tf.compat.v1.variable_scope(scope or "Conv2d"):
+        W = tf.compat.v1.get_variable("Matrix", shape=[k_h, k_w, in_nums, out_nums],
+                            initializer=tf.compat.v1.truncated_normal_initializer(stddev=stddev))
         if sn:
             W = spectral_norm(W)
-        b = tf.get_variable("Bias", shape=[out_nums], initializer=tf.zeros_initializer)
-        conv = tf.nn.conv2d(input_, filter=W, strides=[1, d_h, d_w, 1], padding=padding)
+        b = tf.compat.v1.get_variable("Bias", shape=[out_nums], initializer=tf.compat.v1.zeros_initializer)
+        conv = tf.nn.conv2d(input=input_, filters=W, strides=[1, d_h, d_w, 1], padding=padding)
         conv = tf.nn.bias_add(conv, b)
 
     return conv
@@ -126,10 +126,10 @@ def self_attention(x, ch, sn=False):
     # N = h * w
     s = tf.matmul(hw_flatten(g), hw_flatten(f), transpose_b=True)  # # [bs, N, N]
 
-    beta = tf.nn.softmax(s, dim=-1)  # attention map
+    beta = tf.nn.softmax(s, axis=-1)  # attention map
 
     o = tf.matmul(beta, hw_flatten(h))  # [bs, N, C]
-    gamma = tf.get_variable("gamma", [1], initializer=tf.constant_initializer(0.0))
+    gamma = tf.compat.v1.get_variable("gamma", [1], initializer=tf.compat.v1.constant_initializer(0.0))
 
     o = tf.reshape(o, [-1] + x.get_shape().as_list()[1:])  # [bs, h, w, C]
     x = gamma * o + x
@@ -142,7 +142,7 @@ def spectral_norm(w, iteration=1):
     w_shape = w.shape.as_list()
     w = tf.reshape(w, [-1, w_shape[-1]])
 
-    u = tf.get_variable("u", [1, w_shape[-1]], initializer=tf.truncated_normal_initializer(), trainable=False)
+    u = tf.compat.v1.get_variable("u", [1, w_shape[-1]], initializer=tf.compat.v1.truncated_normal_initializer(), trainable=False)
 
     u_hat = u
     v_hat = None
@@ -151,13 +151,13 @@ def spectral_norm(w, iteration=1):
         power iteration
         Usually iteration = 1 will be enough
         """
-        v_ = tf.matmul(u_hat, tf.transpose(w))
+        v_ = tf.matmul(u_hat, tf.transpose(a=w))
         v_hat = l2_norm(v_)
 
         u_ = tf.matmul(v_hat, w)
         u_hat = l2_norm(u_)
 
-    sigma = tf.matmul(tf.matmul(v_hat, w), tf.transpose(u_hat))
+    sigma = tf.matmul(tf.matmul(v_hat, w), tf.transpose(a=u_hat))
     w_norm = w / sigma
 
     with tf.control_dependencies([u.assign(u_hat)]):
@@ -168,8 +168,8 @@ def spectral_norm(w, iteration=1):
 
 def create_output_unit(output_size, vocab_size):
     # output_size = self.gen_mem.output_size.as_list()[0]
-    Wo = tf.get_variable('Wo', shape=[output_size, vocab_size], initializer=create_linear_initializer(output_size))
-    bo = tf.get_variable('bo', shape=[vocab_size], initializer=create_bias_initializer())
+    Wo = tf.compat.v1.get_variable('Wo', shape=[output_size, vocab_size], initializer=create_linear_initializer(output_size))
+    bo = tf.compat.v1.get_variable('bo', shape=[vocab_size], initializer=create_bias_initializer())
 
     def unit(hidden_mem_o):
         logits = tf.matmul(hidden_mem_o, Wo) + bo
@@ -180,8 +180,8 @@ def create_output_unit(output_size, vocab_size):
 
 def add_gumbel(o_t, eps=1e-10):
     """Sample from Gumbel(0, 1)"""
-    u = tf.random_uniform(tf.shape(o_t), minval=0, maxval=1, dtype=tf.float32)
-    g_t = -tf.log(-tf.log(u + eps) + eps)
+    u = tf.random.uniform(tf.shape(input=o_t), minval=0, maxval=1, dtype=tf.float32)
+    g_t = -tf.math.log(-tf.math.log(u + eps) + eps)
     gumbel_t = tf.add(o_t, g_t)
     return gumbel_t
 
@@ -190,16 +190,16 @@ def add_gumbel_cond(o_t, next_token_onehot, eps=1e-10):
     """draw reparameterization z of categorical variable b from p(z|b)."""
 
     def truncated_gumbel(gumbel, truncation):
-        return -tf.log(eps + tf.exp(-gumbel) + tf.exp(-truncation))
+        return -tf.math.log(eps + tf.exp(-gumbel) + tf.exp(-truncation))
 
-    v = tf.random_uniform(tf.shape(o_t), minval=0, maxval=1, dtype=tf.float32)
+    v = tf.random.uniform(tf.shape(input=o_t), minval=0, maxval=1, dtype=tf.float32)
 
     print("shape of v: {}".format(v.get_shape().as_list()))
     print("shape of next_token_onehot: {}".format(next_token_onehot.get_shape().as_list()))
 
-    gumbel = -tf.log(-tf.log(v + eps) + eps, name="gumbel")
-    topgumbels = gumbel + tf.reduce_logsumexp(o_t, axis=-1, keep_dims=True)
-    topgumbel = tf.reduce_sum(next_token_onehot * topgumbels, axis=-1, keep_dims=True)
+    gumbel = -tf.math.log(-tf.math.log(v + eps) + eps, name="gumbel")
+    topgumbels = gumbel + tf.reduce_logsumexp(input_tensor=o_t, axis=-1, keepdims=True)
+    topgumbel = tf.reduce_sum(input_tensor=next_token_onehot * topgumbels, axis=-1, keepdims=True)
 
     truncgumbel = truncated_gumbel(gumbel + o_t, topgumbel)
     return (1. - next_token_onehot) * truncgumbel + next_token_onehot * topgumbels
@@ -207,14 +207,14 @@ def add_gumbel_cond(o_t, next_token_onehot, eps=1e-10):
 
 def gradient_penalty(discriminator, x_real_onehot, x_fake_onehot_appr, config):
     """compute the gradiet penalty for the WGAN-GP loss"""
-    alpha = tf.random_uniform(shape=[config['batch_size'], 1, 1], minval=0., maxval=1.)
+    alpha = tf.random.uniform(shape=[config['batch_size'], 1, 1], minval=0., maxval=1.)
     interpolated = alpha * x_real_onehot + (1. - alpha) * x_fake_onehot_appr
 
     logit = discriminator(x_onehot=interpolated)
 
-    grad = tf.gradients(logit, interpolated)[0]  # gradient of D(interpolated)
-    grad_norm = tf.norm(tf.layers.flatten(grad), axis=1)  # l2 norm
+    grad = tf.gradients(ys=logit, xs=interpolated)[0]  # gradient of D(interpolated)
+    grad_norm = tf.norm(tensor=tf.compat.v1.layers.flatten(grad), axis=1)  # l2 norm
 
-    GP = config['reg_param'] * tf.reduce_mean(tf.square(grad_norm - 1.))
+    GP = config['reg_param'] * tf.reduce_mean(input_tensor=tf.square(grad_norm - 1.))
 
     return GP
