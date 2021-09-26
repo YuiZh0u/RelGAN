@@ -11,6 +11,7 @@ num_blocks = [2, 2, 2, 2]
 
 cnn_initializer = tf.keras.initializers.he_normal()
 fc_initializer = tf.truncated_normal_initializer(stddev=0.05)
+# fc_initializer = tf.compat.v1.truncated_normal_initializer(stddev=0.05) #If use Tensorflow v2
 
 
 # The generator network based on the Relational Memory
