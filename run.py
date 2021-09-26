@@ -83,7 +83,7 @@ def main():
                                                  num_rep=args.num_rep, sn=args.sn)
         oracle_train(generator, discriminator, oracle_model, oracle_loader, gen_loader, config)
 
-    elif args.dataset in ['image_coco', 'emnlp_news']:
+    elif args.dataset in ['image_coco', 'emnlp_news', 'covid_tweets']:
         data_file = os.path.join(args.data_dir, '{}.txt'.format(args.dataset))
         seq_len, vocab_size = text_precess(data_file)
         config['seq_len'] = seq_len
